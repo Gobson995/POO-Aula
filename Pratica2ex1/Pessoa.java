@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Pessoa {
     private String nome;
     private int idade;
@@ -43,5 +41,19 @@ public class Pessoa {
 
     public float calculaImc() {
         return this.massa / (this.altura * this.altura);
+    }
+
+    public String toString() {
+        return "Nome: " + nome + " Idade: " + idade;
+    }
+
+    public boolean equals(Object o) {
+        if (o instanceof Pessoa) {
+            Pessoa p = (Pessoa) o;
+            if (this.nome.equals(p.getNome()) && this.idade == p.getIdade()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

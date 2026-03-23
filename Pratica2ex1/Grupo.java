@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Grupo {
     private Pessoa[] pessoas = new Pessoa[5];
     private int numeroPessoas = 0;
