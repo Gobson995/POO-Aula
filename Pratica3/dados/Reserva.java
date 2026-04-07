@@ -1,4 +1,4 @@
-package Pratica3.dados;
+package dados;
 
 public class Reserva {
     private int numReserva;
@@ -87,6 +87,16 @@ public class Reserva {
 
     public void setDestino(Cidade destino) {
         this.destino = destino;
+    }
+
+    public String toString() {
+        String info = "Reserva [" + numReserva + "] | Data: " + dataVoo + " as " + horaVoo + "\n";
+        info += "Trecho: " + origem.getNome() + " -> " + destino.getNome() + "\n";
+        info += "Classe: " + classeVoo + " | Poltrona: " + poltrona + " | Preco: R$" + preco;
+        if (idaEvolta && volta != null) {
+            info += "\n   [Voo de Volta vinculado: Reserva " + volta.getNumReserva() + "]";
+        }
+        return info;
     }
     
 }

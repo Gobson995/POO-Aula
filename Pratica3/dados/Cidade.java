@@ -1,4 +1,4 @@
-package Pratica3.dados;
+package dados;
 
 public class Cidade {
     private String nome;
