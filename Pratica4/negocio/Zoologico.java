@@ -18,6 +18,10 @@ public class Zoologico {
     public boolean alocarAnimal(Animal animal, Viveiro viveiro) {
         return viveiro.adicionarAnimal(animal);
     }
+
+    public List<Viveiro> getTodosViveiros() {
+        return viveiros;
+    }
     
     public Aquario[] getSoAquarios() {
         List<Aquario> listaAquarios = new ArrayList<>();

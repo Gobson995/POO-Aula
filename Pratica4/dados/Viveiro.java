@@ -54,7 +54,8 @@ public class Viveiro {
     }
 
     public boolean adicionarAnimal(Animal animal) {
-        if (espacoDisponivel() >= animal.calculaEspacoOcupado()) {
+        float espacoNecessario = animal.calculaEspacoOcupado() * 0.70f;
+        if (espacoDisponivel() > espacoNecessario) {
             animais.add(animal);
             return true;
         }

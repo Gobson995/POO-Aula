@@ -29,7 +29,10 @@ public class Aquario extends Viveiro {
     @Override
     public boolean adicionarAnimal(Animal animal) {
         if (animal instanceof Peixe) {
-            return super.adicionarAnimal(animal);
+            Peixe peixe = (Peixe) animal;
+            if (Math.abs(this.temperatura - peixe.getTemperaturaIdeal()) <= 3.0f) {
+                return super.adicionarAnimal(animal);
+            }
         }
         return false;
     }
