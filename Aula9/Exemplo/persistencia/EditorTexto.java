@@ -41,10 +41,8 @@ public class EditorTexto {
             arquivo = new FileReader(caminho);
             r = new Scanner(arquivo);
 
-            String s = r.nextLine();
-            while (s != null) {
-                dados.add(s);
-                s = r.nextLine();
+            while (r.hasNextLine()) {
+                dados.add(r.nextLine());
             }
 
             arquivo.close();
