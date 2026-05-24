@@ -1,8 +1,7 @@
 from pessoa import Pessoa
 
 class Aluno(Pessoa):
-
-    def _init__(self, nome):
+    def __init__(self, nome):
         super().__init__(nome)
         self.notas = []
 
@@ -10,12 +9,14 @@ class Aluno(Pessoa):
         self.notas.append(nota)
 
     def calcularMedia(self):
-        media = 0.0
-        for nota in self.notas:
-            media += nota
-        return media/len(self.notas)
+        if len(self.notas) == 0:
+            return 0.0
+        
+        return sum(self.notas)/len(self.notas)
     
     def __repr__(self):
-        return 'Nome Aluno {} - Média: {}'.format(self.nome, self.calcularMedia())
-        
+        media = self.calcularMedia()
+        status = "Aprovado" if media > 7.0 else "Em Exame"
+
+        return f"Aluno: {self.nome} | Notas: {self.notas} | Média: {media:.2f} | Status: {status}"      
 
