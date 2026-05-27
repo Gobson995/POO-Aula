@@ -2,6 +2,7 @@ package apresentacao;
 
 import dados.Contato;
 import negocio.ListaTelefonica;
+import exceptions.*;
 
 import java.util.List;
 import java.util.Map;
@@ -27,16 +28,51 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    adicionar(agenda, scanner);
+                    try {
+                        adicionar(agenda, scanner);
+                    }
+                    catch(ContatoJaCadastradoException cj) {
+                        System.err.println(cj.getMessage());  
+                    }
+                    catch(ErroNaLeituraException al) {
+                        System.err.println(al.getMessage());  
+                    }
+                    catch(ErroNaEscritaException eg) {
+                        System.err.println(eg.getMessage());  
+                    }
                     break;
                 case 2:
-                    listarTodos(agenda);
+                    try{
+                        listarTodos(agenda);
+                    }
+                    catch(ErroNaLeituraException al) {
+                        System.err.println(al.getMessage());  
+                    }
                     break;
                 case 3:
-                    buscar(agenda, scanner);
+                    try {
+                        buscar(agenda, scanner);
+                    }
+                    catch(ErroNaLeituraException al) {
+                        System.err.println(al.getMessage());  
+                    }
                     break;
                 case 4:
-                    remover(agenda, scanner);
+                    try {
+                        remover(agenda, scanner);
+                    }
+                    catch(ContatoNaoCadastradoException cn) {
+                        System.err.println(cn.getMessage());
+                    }
+                    catch(ContatoJaCadastradoException cj) {
+                        System.err.println(cj.getMessage());  
+                    }
+                    catch(ErroNaLeituraException al) {
+                        System.err.println(al.getMessage());  
+                    }
+                    catch(ErroNaEscritaException eg) {
+                        System.err.println(eg.getMessage());  
+                    }
                     break;
                 case 5:
                     System.out.println("Saindo do sistema... Até logo!");
@@ -48,7 +84,7 @@ public class Main {
         scanner.close();
     }
 
-    private static void adicionar(ListaTelefonica agenda, Scanner scanner) {
+    private static void adicionar(ListaTelefonica agenda, Scanner scanner) throws ContatoJaCadastradoException, ErroNaLeituraException, ErroNaEscritaException {
         System.out.println("\n--- Novo Contato ---");
         Contato c = new Contato();
 
@@ -62,7 +98,7 @@ public class Main {
         System.out.println("Contato salvo no arquivo com sucesso!");
     }
 
-    private static void listarTodos(ListaTelefonica agenda) {
+    private static void listarTodos(ListaTelefonica agenda) throws ErroNaLeituraException {
         Map<Character, List<Contato>> mapa = agenda.listarContatos();
 
         if (mapa.isEmpty()) {
@@ -79,7 +115,7 @@ public class Main {
         }
     }
 
-    private static void buscar(ListaTelefonica agenda, Scanner scanner) {
+    private static void buscar(ListaTelefonica agenda, Scanner scanner) throws ErroNaLeituraException{
         System.out.print("\nDigite a letra inicial para buscar: ");
         char letra = scanner.nextLine().charAt(0);
 
@@ -95,7 +131,7 @@ public class Main {
         }
     }
 
-    private static void remover(ListaTelefonica agenda, Scanner scanner) {
+    private static void remover(ListaTelefonica agenda, Scanner scanner) throws ContatoJaCadastradoException, ErroNaLeituraException, ErroNaEscritaException, ContatoNaoCadastradoException {
         System.out.println("\n--- Remover Contato ---");
         System.out.print("Digite o NOME EXATO do contato que deseja remover: ");
         String nome = scanner.nextLine();

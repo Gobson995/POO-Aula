@@ -6,6 +6,10 @@ public class ErroArquivoException extends Exception{
     public String getCaminho() {
         return this.caminho;
     }
+
+    public void setCaminho(String caminho) {
+        this.caminho = caminho;
+    }
     
     public ErroArquivoException(){
     }

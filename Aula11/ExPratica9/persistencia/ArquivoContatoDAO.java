@@ -3,6 +3,7 @@ package persistencia;
 import dados.Contato;
 import java.util.ArrayList;
 import java.util.List;
+import exceptions.*;
 
 public class ArquivoContatoDAO {
     private final String caminho = "contatos.csv"; 
@@ -23,7 +24,7 @@ public class ArquivoContatoDAO {
         return contato;
     }
 
-    public List<Contato> leContatos() {
+    public List<Contato> leContatos() throws ErroNaLeituraException{
         List<Contato> contatos = new ArrayList<>();
         List<String> linhas = editorArquivo.leTexto(caminho);
 
@@ -36,7 +37,7 @@ public class ArquivoContatoDAO {
         return contatos;
     }
 
-    public void salvaContatos(List<Contato> contatos) {
+    public void salvaContatos(List<Contato> contatos) throws ErroNaEscritaException{
         List<String> linhasCSV = new ArrayList<>();
 
         for (Contato c : contatos) {
