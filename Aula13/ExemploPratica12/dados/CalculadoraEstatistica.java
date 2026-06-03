@@ -1,0 +1,98 @@
+package dados;
+
+import java.util.*;
+
+public class CalculadoraEstatistica implements ISequencia {
+    private static CalculadoraEstatistica instance = null;
+    protected List<Integer> sequencia = new LinkedList<Integer>();
+
+    private CalculadoraEstatistica() {
+    }
+
+    public static CalculadoraEstatistica getInstance() {
+        if (instance == null) {
+            instance = new CalculadoraEstatistica();
+        }
+
+        return instance;
+    }
+
+    public List<Integer> getValores() {
+        return this.sequencia;
+    }
+
+    public void adicionarValor(int valor) {
+        sequencia.add(valor);
+    }
+
+    public void limparValores() {
+        sequencia.clear();
+    }
+
+    public void tirarUltimoValor() { // a mais do que precisa
+        if (sequencia.size() > 0) {
+            sequencia.remove(sequencia.size() - 1);
+        }
+    }
+
+    public int sortear() {
+        Random r = new Random();
+
+        return sequencia.get(r.nextInt(sequencia.size()));
+    }
+
+    public long somatorio() {
+        long soma = 0;
+
+        for (int i = 0; i < sequencia.size(); i++) {
+            soma += sequencia.get(i);
+        }
+
+        return soma;
+    }
+
+    public double mediaAritmetica() {
+        return (double) somatorio()/sequencia.size();
+    }
+
+    public double mediaGeometrica() {
+        double produto = 1;
+
+        for (int i = 0; i < sequencia.size(); i++) {
+            produto *= sequencia.get(i);
+        }
+
+        return Math.pow(produto, 1.0/sequencia.size());
+    }
+
+    public double variancia() {
+        if (sequencia.size() <= 1) return 0.0;
+        
+        double soma = 0.0;
+        double media = mediaAritmetica();
+
+        for (int i = 0; i < sequencia.size(); i++) {
+            soma += Math.pow((sequencia.get(i) - media), 2.0);
+        }
+
+        return soma/(sequencia.size() - 1);
+    }
+
+    public double desvioPadrao() {
+        return Math.sqrt(variancia());
+    }
+
+    public long amplitude() {
+        long maior = sequencia.get(0);
+        long menor = sequencia.get(0);
+
+        for (int i = 0; i < sequencia.size(); i++) {
+            if (sequencia.get(i) <= menor) menor = sequencia.get(i);
+
+            if (sequencia.get(i) >= maior) maior = sequencia.get(i);
+        }
+
+        return maior - menor;
+    }
+
+}
